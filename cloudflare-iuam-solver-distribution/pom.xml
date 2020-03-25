@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>cloudflare-iuam-solver-distribution</artifactId>
+  <packaging>pom</packaging>
+
+  <name>${project.groupId}:${project.artifactId}</name>
+
+  <parent>
+    <groupId>com.ninja_beans.crawler</groupId>
+    <artifactId>cloudflare-iuam-solver</artifactId>
+    <version>0.0.1</version>
+  </parent>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.ninja_beans.crawler</groupId>
+      <artifactId>cloudflare-iuam-solver-app</artifactId>
+      <version>0.0.1</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>${maven-assembly-plugin.version}</version>
+
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <descriptors>
+                <descriptor>src/assembly/jar-with-dependencies.xml</descriptor>
+              </descriptors>
+              <archive>
+                <manifest>
+                  <mainClass>com.ninja_beans.crawler.App</mainClass>
+                </manifest>
+              </archive>
+              <appendAssemblyId>false</appendAssemblyId>
+              <finalName>cloudflare-iuam-solver-${project.version}</finalName>
+            </configuration>
+          </execution>
+          <execution>
+            <id>bin</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <descriptors>
+                <descriptor>src/assembly/jar-with-dependencies2.xml</descriptor>
+              </descriptors>
+              <appendAssemblyId>false</appendAssemblyId>
+              <finalName>cloudflare-iuam-solver-${project.version}-dist</finalName>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

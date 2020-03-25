@@ -1,0 +1,6 @@
+#Organize Import Order
+#Fri Mar 20 15:48:38 JST 2020
+0=
+1=lombok.val
+2=lombok.var
+3=\#
