@@ -4,14 +4,14 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>cloudflare-iuam-solver-lib</artifactId>
+  <artifactId>cloudflare-iuam-solver</artifactId>
   <packaging>jar</packaging>
 
   <name>${project.groupId}:${project.artifactId}</name>
 
   <parent>
-    <groupId>com.ninja_beans.crawler</groupId>
-    <artifactId>cloudflare-iuam-solver</artifactId>
+    <groupId>com.ninja-beans.crawler</groupId>
+    <artifactId>cloudflare-iuam-solver-parent</artifactId>
     <version>0.0.1</version>
   </parent>
 
@@ -250,7 +250,7 @@
         <groupId>org.owasp</groupId>
         <artifactId>dependency-check-maven</artifactId>
         <configuration>
-          <failBuildOnCVSS>8</failBuildOnCVSS>
+          <failBuildOnCVSS>9</failBuildOnCVSS>
         </configuration>
         <executions>
           <execution>

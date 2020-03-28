@@ -16,8 +16,8 @@
     <moduleSet>
       <useAllReactorProjects>true</useAllReactorProjects>
       <includes>
-        <include>com.ninja_beans.crawler:cloudflare-iuam-solver-lib</include>
-        <include>com.ninja_beans.crawler:cloudflare-iuam-solver-app</include>
+        <include>com.ninja-beans.crawler:cloudflare-iuam-solver</include>
+        <include>com.ninja-beans.crawler:cloudflare-iuam-solver-cli</include>
       </includes>
       <binaries>
         <outputDirectory>modules/maven-assembly-plugin</outputDirectory>
@@ -29,8 +29,6 @@
   <dependencySets>
     <dependencySet>
       <outputDirectory>/</outputDirectory>
-      <!-- useProjectArtifact は自身を jar に含めるか否かの設定。distribution モジュールは空なのでここは常に false となる -->
-      <!--<useProjectArtifact>true</useProjectArtifact>  -->
       <useProjectArtifact>false</useProjectArtifact>
       <unpack>true</unpack>
       <scope>runtime</scope>

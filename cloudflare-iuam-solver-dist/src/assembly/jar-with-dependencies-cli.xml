@@ -15,8 +15,6 @@
   <dependencySets>
     <dependencySet>
       <outputDirectory>/</outputDirectory>
-      <!-- useProjectArtifact は自身を jar に含めるか否かの設定。distribution モジュールは空なのでここは常に false となる -->
-      <!--<useProjectArtifact>true</useProjectArtifact>  -->
       <useProjectArtifact>false</useProjectArtifact>
       <unpack>true</unpack>
       <scope>runtime</scope>

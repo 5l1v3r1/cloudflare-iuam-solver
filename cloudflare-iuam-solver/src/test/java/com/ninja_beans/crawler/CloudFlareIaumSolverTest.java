@@ -15,8 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CloudFlareIaumSolverTest {
   @Test
   public void shouldReturnCfduidAndClearanceCookieString() {
-    // val solver = new
-    // IuamSolver("https://cloudflare-iuam-solver-test.ninja-beans.com/");
+    // val solver = new IuamSolver("https://cloudflare-iuam-solver-test.ninja-beans.com/");
     val solver =
         new IuamSolver(URI.create("https://ninja-beans.github.io/cloudflare-iuam-solver/"));
     IuamSolverResult result = solver.solve();

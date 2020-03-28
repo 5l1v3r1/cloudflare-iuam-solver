@@ -4,8 +4,8 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.ninja_beans.crawler</groupId>
-  <artifactId>cloudflare-iuam-solver</artifactId>
+  <groupId>com.ninja-beans.crawler</groupId>
+  <artifactId>cloudflare-iuam-solver-parent</artifactId>
   <version>0.0.1</version>
   <packaging>pom</packaging>
 
@@ -35,10 +35,54 @@
     <tag>HEAD</tag>
   </scm>
 
+  <profiles>
+    <profile>
+      <id>release-sign-artifacts</id>
+      <!-- mvn -DperformRelease=true deploy -->
+      <activation>
+        <property>
+          <name>performRelease</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+        
+          <!-- gpg -->
+          <plugin>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+          <!-- sonatype release -->
+          <plugin>
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>nexus-staging-maven-plugin</artifactId>
+            <extensions>true</extensions>
+            <configuration>
+              <serverId>ossrh</serverId>
+              <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+              <autoReleaseAfterClose>false</autoReleaseAfterClose>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+
   <modules>
-    <module>cloudflare-iuam-solver-lib</module>
-    <module>cloudflare-iuam-solver-app</module>
-    <module>cloudflare-iuam-solver-distribution</module>
+    <module>cloudflare-iuam-solver</module>
+    <module>cloudflare-iuam-solver-cli</module>
+    <module>cloudflare-iuam-solver-dist</module>
   </modules>
 
   <properties>
@@ -62,6 +106,8 @@
     <maven-assembly-plugin.version>3.2.0</maven-assembly-plugin.version>
     <maven-surefire-report-plugin.version>3.0.0-M3</maven-surefire-report-plugin.version>
     <maven-jxr-plugin.version>3.0.0</maven-jxr-plugin.version>
+    <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
+    <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
 
     <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
     <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
@@ -74,9 +120,13 @@
   </properties>
 
   <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
     <repository>
-      <id>local.repo</id>
-      <url>scm:git:https://github.com/ninja-beans/cloudflare-iuam-solver.git</url>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
     <site>
       <id>www.ninja-beans.com</id>
@@ -189,6 +239,26 @@
         <plugin>
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>${maven-project-info-reports-plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.sonatype.plugins</groupId>
+          <artifactId>nexus-staging-maven-plugin</artifactId>
+          <version>${nexus-staging-maven-plugin.version}</version>
+          <!--
+          <configuration>
+            <skipLocalStaging>true</skipLocalStaging>
+            <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
+            <skipRemoteStaging>true</skipRemoteStaging>
+            <skipStaging>true</skipStaging>
+            <skipStagingRepositoryClose>true</skipStagingRepositoryClose>
+          </configuration>
+          -->
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-gpg-plugin</artifactId>
+          <version>${maven-gpg-plugin.version}</version>
         </plugin>
 
         <plugin>

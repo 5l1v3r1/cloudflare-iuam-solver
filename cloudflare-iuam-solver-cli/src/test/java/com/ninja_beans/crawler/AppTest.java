@@ -6,7 +6,6 @@ import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
-@Slf4j
 /** Unit test for simple App. */
 public class AppTest {
   /**
@@ -19,7 +18,6 @@ public class AppTest {
   public void shouldAnswerWithTrue() throws IOException, InterruptedException {
     String[] args = {"https://cloudflare-iuam-solver-test.ninja-beans.com/"};
     App.main(args);
-    log.info("Hello");
     assertTrue(true);
   }
 }
