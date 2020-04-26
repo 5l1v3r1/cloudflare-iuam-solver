@@ -12,14 +12,14 @@
   <parent>
     <groupId>com.ninja-beans.crawler</groupId>
     <artifactId>cloudflare-iuam-solver-parent</artifactId>
-    <version>0.0.1</version>
+    <version>0.1.0</version>
   </parent>
 
   <dependencies>
     <dependency>
       <groupId>com.ninja-beans.crawler</groupId>
       <artifactId>cloudflare-iuam-solver-cli</artifactId>
-      <version>0.0.1</version>
+      <version>0.1.0</version>
     </dependency>
   </dependencies>
 

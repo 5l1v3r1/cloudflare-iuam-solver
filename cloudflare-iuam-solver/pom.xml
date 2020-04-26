@@ -12,7 +12,7 @@
   <parent>
     <groupId>com.ninja-beans.crawler</groupId>
     <artifactId>cloudflare-iuam-solver-parent</artifactId>
-    <version>0.0.1</version>
+    <version>0.1.0</version>
   </parent>
 
   <properties>
@@ -137,6 +137,7 @@
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>${jacoco-maven-plugin.version}</version>
         <executions>
+          <!-- prepare agent goal: from initialize to test-compile -->
           <execution>
             <id>jacoco-prepare-agent</id>
             <phase>test-compile</phase>
@@ -145,6 +146,7 @@
             </goals>
           </execution>
 
+          <!-- report goal phase: from verify to test -->
           <execution>
             <id>jacoco-report</id>
             <phase>test</phase>

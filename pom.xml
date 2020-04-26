@@ -6,7 +6,7 @@
 
   <groupId>com.ninja-beans.crawler</groupId>
   <artifactId>cloudflare-iuam-solver-parent</artifactId>
-  <version>0.0.1</version>
+  <version>0.1.0</version>
   <packaging>pom</packaging>
 
   <name>${project.groupId}:${project.artifactId}</name>
@@ -78,7 +78,6 @@
     </profile>
   </profiles>
 
-
   <modules>
     <module>cloudflare-iuam-solver</module>
     <module>cloudflare-iuam-solver-cli</module>
@@ -94,7 +93,7 @@
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
     <maven-source-plugin.version>3.2.0</maven-source-plugin.version>
     <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
-    <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+    <maven-surefire-plugin.version>3.0.0-M4</maven-surefire-plugin.version>
     <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
     <maven-install-plugin.version>2.5.2</maven-install-plugin.version>
     <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
@@ -104,7 +103,7 @@
     <maven-pmd-plugin.version>3.13.0</maven-pmd-plugin.version>
     <maven-enforcer-plugin.version>3.0.0-M2</maven-enforcer-plugin.version>
     <maven-assembly-plugin.version>3.2.0</maven-assembly-plugin.version>
-    <maven-surefire-report-plugin.version>3.0.0-M3</maven-surefire-report-plugin.version>
+    <maven-surefire-report-plugin.version>3.0.0-M4</maven-surefire-report-plugin.version>
     <maven-jxr-plugin.version>3.0.0</maven-jxr-plugin.version>
     <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
     <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
@@ -115,7 +114,7 @@
     <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
     <spotless-maven-plugin.version>1.27.0</spotless-maven-plugin.version>
     <dependency-check-maven.version>5.2.4</dependency-check-maven.version>
-    <requireMavenVersion.version>3.6</requireMavenVersion.version>
+    <requireMavenVersion.version>3.5</requireMavenVersion.version>
     <requireJavaVersion.version>1.8</requireJavaVersion.version>
   </properties>
 
@@ -141,6 +140,7 @@
       <name>maven central repository</name>
       <releases>
         <enabled>true</enabled>
+        <!-- http://maven.apache.org/pom.html#Repositories  -->
         <updatePolicy>interval:180</updatePolicy>
       </releases>
       <snapshots>
@@ -202,8 +202,20 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>${maven-surefire-plugin.version}</version>
           <configuration>
-            <argLine> --illegal-access=permit
+            <!-- https://winterbe.com/posts/2018/08/29/migrate-maven-projects-to-java-11-jigsaw/ -->
+            <argLine>
+              --illegal-access=permit
             </argLine>
+            <!-- https://stackoverflow.com/questions/50661648/spring-boot-fails-to-run-maven-surefire-plugin-classnotfoundexception-org-apache/50661649#50661649 -->
+            <!-- <useSystemClassLoader>false</useSystemClassLoader> -->
+            <!-- <forkCount>0</forkCount> -->
+            <!-- <skip>true</skip> -->
+            <!--
+              -Djdk.net.URLClassPath.disableClassPathURLCheck=true
+            <forkCount>3</forkCount>
+            <reuseForks>true</reuseForks>
+            <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
+            -->
           </configuration>
         </plugin>
         <plugin>
@@ -222,12 +234,10 @@
           <artifactId>maven-deploy-plugin</artifactId>
           <version>${maven-deploy-plugin.version}</version>
         </plugin>
-
         <plugin>
           <artifactId>maven-jxr-plugin</artifactId>
           <version>${maven-jxr-plugin.version}</version>
         </plugin>
-
         <plugin>
           <artifactId>maven-site-plugin</artifactId>
           <version>${maven-site-plugin.version}</version>
@@ -240,33 +250,20 @@
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>${maven-project-info-reports-plugin.version}</version>
         </plugin>
-
         <plugin>
           <groupId>org.sonatype.plugins</groupId>
           <artifactId>nexus-staging-maven-plugin</artifactId>
           <version>${nexus-staging-maven-plugin.version}</version>
-          <!--
-          <configuration>
-            <skipLocalStaging>true</skipLocalStaging>
-            <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
-            <skipRemoteStaging>true</skipRemoteStaging>
-            <skipStaging>true</skipStaging>
-            <skipStagingRepositoryClose>true</skipStagingRepositoryClose>
-          </configuration>
-          -->
         </plugin>
-
         <plugin>
           <artifactId>maven-gpg-plugin</artifactId>
           <version>${maven-gpg-plugin.version}</version>
         </plugin>
-
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>exec-maven-plugin</artifactId>
           <version>${exec-maven-plugin.version}</version>
         </plugin>
-
         <plugin>
           <artifactId>maven-checkstyle-plugin</artifactId>
           <version>${maven-checkstyle-plugin.version}</version>
@@ -278,7 +275,6 @@
             </dependency>
           </dependencies>
         </plugin>
-
         <plugin>
           <artifactId>maven-pmd-plugin</artifactId>
           <version>${maven-pmd-plugin.version}</version>
@@ -390,6 +386,7 @@
         <configuration>
           <rulesUri>file://${session.executionRootDirectory}/config/maven-versions-plugin-rules.xml</rulesUri>
           <generateBackupPoms>false</generateBackupPoms>
+          <allowRangeMatching>true</allowRangeMatching>
         </configuration>
       </plugin>
 

@@ -85,3 +85,12 @@ nb-configuration.xml
 .checkstyle
 .pmd
 .ruleset
+
+
+
+##############################
+## Others
+##############################
+
+tool/cfis
+

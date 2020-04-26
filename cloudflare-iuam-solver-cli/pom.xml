@@ -12,7 +12,7 @@
   <parent>
     <groupId>com.ninja-beans.crawler</groupId>
     <artifactId>cloudflare-iuam-solver-parent</artifactId>
-    <version>0.0.1</version>
+    <version>0.1.0</version>
   </parent>
 
   <properties>
@@ -25,7 +25,7 @@
     <dependency>
       <groupId>com.ninja-beans.crawler</groupId>
       <artifactId>cloudflare-iuam-solver</artifactId>
-      <version>0.0.1</version>
+      <version>0.1.0</version>
     </dependency>
   
     <!-- lombok -->
@@ -81,12 +81,24 @@
       <version>3.1.0</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>com.ginsberg</groupId>
+      <artifactId>junit5-system-exit</artifactId>
+      <version>1.0.0</version>
+    </dependency>
 
     <!-- jsoup -->
     <dependency>
       <groupId>org.jsoup</groupId>
       <artifactId>jsoup</artifactId>
       <version>1.13.1</version>
+    </dependency>
+
+    <!-- picocli -->
+    <dependency>
+      <groupId>info.picocli</groupId>
+      <artifactId>picocli</artifactId>
+      <version>4.2.0</version>
     </dependency>
   </dependencies>
 
@@ -97,11 +109,14 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
         <configuration>
+          <!-- override super pom setting -->
           <skip>false</skip>
 
+          <!-- required -->
           <executable>java</executable>
           <mainClass>com.ninja_beans.crawler.App</mainClass>
 
+          <!-- some system properties if needed -->
           <!--
           <systemProperties>
             <systemProperty>
@@ -166,11 +181,10 @@
 
       <!-- checkstyle -->
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
 
         <configuration>
-          <configLocation>./config/google_checks.xml</configLocation>
+          <configLocation>${session.executionRootDirectory}/config/google_checks.xml</configLocation>
           <encoding>UTF-8</encoding>
           <consoleOutput>true</consoleOutput>
           <failsOnError>false</failsOnError>
@@ -215,7 +229,6 @@
 
       <!-- pmd -->
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
         <configuration>
           <targetJdk>${java.version}</targetJdk>
@@ -285,7 +298,6 @@
 
       <!-- checkstyle -->
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <reportSets>
           <reportSet>
@@ -295,7 +307,7 @@
           </reportSet>
         </reportSets>
         <configuration>
-          <configLocation>google_checks.xml</configLocation>
+          <configLocation>${session.executionRootDirectory}/config/google_checks.xml</configLocation>
         </configuration>
       </plugin>
 

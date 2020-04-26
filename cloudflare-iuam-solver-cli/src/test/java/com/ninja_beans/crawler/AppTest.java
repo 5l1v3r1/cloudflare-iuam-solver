@@ -1,9 +1,7 @@
 package com.ninja_beans.crawler;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import com.ginsberg.junit.exit.ExpectSystemExitWithStatus;
 import java.io.IOException;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 /** Unit test for simple App. */
@@ -15,9 +13,9 @@ public class AppTest {
    * @throws IOException
    */
   @Test
+  @ExpectSystemExitWithStatus(0)
   public void shouldAnswerWithTrue() throws IOException, InterruptedException {
     String[] args = {"https://cloudflare-iuam-solver-test.ninja-beans.com/"};
     App.main(args);
-    assertTrue(true);
   }
 }
